@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+
+    <jdbc:embedded-database id="dataSource" type="DERBY">
+
+        <jdbc:script location="classpath:sql/create_classic.sql"/>
+        <jdbc:script location="classpath:sql/insert*.sql" />
+        <jdbc:script location="classpath:sql/alter_classic.sql"/>
+    </jdbc:embedded-database>
+
+
+
+
+
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+        <!--<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>-->
+        <!--<property name="url" value="jdbc:derby:tempDb;create=true"/>-->
+        <!--<property name="username"  value="app"/>-->
+        <!--<property name="password" value="app"/>-->
+    <!--</bean>-->
+
+    <!--<jdbc:initialize-database data-source="dataSource" ignore-failures="DROPS">-->
+        <!--&lt;!&ndash;<jdbc:script location="classpath:user_drop.sql" />&ndash;&gt;-->
+        <!--<jdbc:script location="classpath:sql/create_classic.sql" />-->
+        <!--<jdbc:script location="classpath:sql/insert*.sql" />-->
+        <!--<jdbc:script location="classpath:sql/alter_classic.sql" />-->
+    <!--</jdbc:initialize-database>-->
+
+</beans>
