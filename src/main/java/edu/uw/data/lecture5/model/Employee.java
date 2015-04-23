@@ -82,7 +82,7 @@ public class Employee {
 //  }
 
   @ManyToOne
-  @Column(name = "REPORTSTO", nullable = true, insertable = true, updatable = true)
+  @JoinColumn(name = "REPORTSTO" ,referencedColumnName = "EMPLOYEENUMBER")
   public Employee getReportsTo() {
     return reportsTo;
   }

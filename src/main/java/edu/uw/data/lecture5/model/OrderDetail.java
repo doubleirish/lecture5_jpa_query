@@ -25,7 +25,7 @@ public class OrderDetail {
   }
 
   @ManyToOne
-  @Column(name = "PRODUCTCODE", nullable = true, insertable = true, updatable = true, length = 15)
+  @JoinColumn(name = "PRODUCTCODE")
   public Product getProduct() {
     return product;
   }

@@ -27,8 +27,8 @@ import static org.hamcrest.Matchers.is;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/queryapp-spring.xml",
-       // "classpath:/datasource-embedded-init.xml"
-        "classpath:/datasource-standalone-test.xml"
+       "classpath:/datasource-embedded-init.xml"
+     //   "classpath:/datasource-standalone-test.xml"
 })
 @TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 
