@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.*;
 import javax.persistence.criteria.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,7 +77,10 @@ public class ClassicDaoImpl implements ClassicDao {
 
 
     public List<Object[]> findSalesOfficeForEachCustomer() {
-        return em.createQuery("select o.city, c.customerName FROM Office o, Customer c where c.salesRep.office =o order by c.customerName "
+        return em.createQuery("SELECT o.city, c.customerName " +
+                        "FROM Office o, Customer c " +
+                        "WHERE c.salesRep.office = o " +
+                        "ORDER by c.customerName "
         ).getResultList();
     }
 
@@ -87,7 +91,12 @@ public class ClassicDaoImpl implements ClassicDao {
         Criteria criteria = session.createCriteria(Customer.class).add(customerExample);
 
         return (List<Customer>) criteria.list();
+    }
 
+    public List<Office> findOffices_QueryByExample(Office office) {
+        List<Office> offices =new ArrayList<>();
+        //TODO Add QBE implementation here see findCustomers_QueryByExample() for example
+        return offices;
     }
 
     public List<Customer> findCustomersByCriteriaOR(Customer search) {

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "ORDERDETAILS" )
 public class OrderDetail {
   private Integer orderNumber;
-  private String productCode;
+  private Product product;
   private Integer quantityOrdered;
   private Double priceEach;
   private Short orderLineNumber;
@@ -24,14 +24,14 @@ public class OrderDetail {
     this.orderNumber = ordernumber;
   }
 
-  @Basic
+  @ManyToOne
   @Column(name = "PRODUCTCODE", nullable = true, insertable = true, updatable = true, length = 15)
-  public String getProductCode() {
-    return productCode;
+  public Product getProduct() {
+    return product;
   }
 
-  public void setProductCode(String productcode) {
-    this.productCode = productcode;
+  public void setProduct(Product product ) {
+    this.product = product;
   }
 
   @Basic
@@ -68,7 +68,7 @@ public class OrderDetail {
   public String toString() {
     return "OrderDetail{" +
         "orderNumber=" + orderNumber +
-        ", productCode='" + productCode + '\'' +
+      //  ", productCode='" + productCode + '\'' +
         ", quantityOrdered=" + quantityOrdered +
         ", priceEach=" + priceEach +
         ", orderLineNumber=" + orderLineNumber +

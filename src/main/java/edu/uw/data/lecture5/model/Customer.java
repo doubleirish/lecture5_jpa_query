@@ -7,6 +7,13 @@ import java.util.Set;
 /**
  * Created by credmond on 26/03/15.
  */
+@NamedQueries({
+        @NamedQuery(name = "Customer.findAll",
+                query = "SELECT c from Customer c")
+
+        , @NamedQuery(name = "Customer.findByCustomerFirstAndLast",
+        query = "SELECT c FROM Customer c  WHERE c.contactFirstname = :firstName   AND   c.contactLastname = :lastName ")
+        })
 @Entity
 @Table(name = "CUSTOMERS" )
 public class Customer {

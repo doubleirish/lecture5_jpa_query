@@ -26,12 +26,15 @@ import static org.hamcrest.Matchers.is;
  * Embedded database is  always initialized cleanly  as its stored in the target sub dir which is cleared out on each run
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/queryapp-spring.xml", "classpath:/datasource-standalone-test.xml"})
+@ContextConfiguration(locations = {"classpath:/queryapp-spring.xml",
+       // "classpath:/datasource-embedded-init.xml"
+        "classpath:/datasource-standalone-test.xml"
+})
 @TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 
-public class ClassicDaoStandAloneTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class ClassicDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
-    static final Logger log = LoggerFactory.getLogger(ClassicDaoStandAloneTest.class);
+    static final Logger log = LoggerFactory.getLogger(ClassicDaoTest.class);
 
     @Resource
     private ClassicDao classicDao;
@@ -75,8 +78,8 @@ public class ClassicDaoStandAloneTest extends AbstractTransactionalJUnit4SpringC
 
     @Test
     public void findSalesOfficeForEachCustomer() {
-        List<Object[]> list_OfficeCity_CustomerName = classicDao.findSalesOfficeForEachCustomer();
-        for (Object[] offCust : list_OfficeCity_CustomerName) {
+        List<Object[]> offCusts = classicDao.findSalesOfficeForEachCustomer();
+        for (Object[] offCust : offCusts) {
             System.out.println("the sales office for customer " + offCust[1] + " is " + offCust[0]);
         }
     }
@@ -92,6 +95,22 @@ public class ClassicDaoStandAloneTest extends AbstractTransactionalJUnit4SpringC
         for (Customer customer : customers) {
 
             log.info("matching customer " + customer);
+        }
+    }
+
+    @Test
+    public void findOfficesByExample() {
+        Office officeExample = new Office();
+         //TODO populate officeExample so only offices in the state of California are shown
+
+        List<Office> offices = classicDao.findOffices_QueryByExample(officeExample);
+        assertThat(offices.size(),is(greaterThan(0)));
+
+        log.info("found  " + offices.size() + " matching offices for  " + officeExample);
+        for (Office office : offices) {
+            log.info("matching office " + office);
+            assertThat(office.getState(),is("CA"));
+
         }
     }
 

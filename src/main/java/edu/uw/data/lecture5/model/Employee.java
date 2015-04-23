@@ -16,7 +16,7 @@ public class Employee {
   private String extension;
   private String email;
   //private String officecode;
-  private Integer reportsTo;
+  private Employee reportsTo;
   private String jobTitle;
   private Office office;
   private Set<Customer> customers = new HashSet<>();
@@ -81,13 +81,13 @@ public class Employee {
 //    this.officecode = officecode;
 //  }
 
-  @Basic
+  @ManyToOne
   @Column(name = "REPORTSTO", nullable = true, insertable = true, updatable = true)
-  public Integer getReportsTo() {
+  public Employee getReportsTo() {
     return reportsTo;
   }
 
-  public void setReportsTo(Integer reportsto) {
+  public void setReportsTo(Employee reportsto) {
     this.reportsTo = reportsto;
   }
 
@@ -129,7 +129,7 @@ public class Employee {
         ", firstname='" + firstName + '\'' +
         ", extension='" + extension + '\'' +
         ", email='" + email + '\'' +
-        ", reportsto=" + reportsTo +
+       // ", reportsto=" + reportsTo +
         ", jobtitle='" + jobTitle + '\'' +
        // ", office=" + office +
         //", customers=" + customers +

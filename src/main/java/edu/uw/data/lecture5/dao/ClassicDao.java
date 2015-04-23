@@ -24,6 +24,7 @@ import java.util.List;
 
     // QBE Example
      List<Customer> findCustomers_QueryByExample(Customer cust) ;
+    List<Office> findOffices_QueryByExample(Office office) ;
 
 
     //Criteria untyped api

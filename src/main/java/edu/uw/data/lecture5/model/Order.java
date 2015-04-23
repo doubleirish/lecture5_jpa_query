@@ -6,6 +6,11 @@ import java.sql.Date;
 /**
  * Created by credmond on 26/03/15.
  */
+@NamedQueries({
+        @NamedQuery(name = "Order.findAll",
+                query = "SELECT o from Order o")
+
+})
 @Entity
 @Table(name = "ORDERS" )
 public class Order {
