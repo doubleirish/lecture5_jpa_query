@@ -194,4 +194,12 @@ public class ClassicDaoImpl implements ClassicDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public List<Customer> findCustomersByCity(String city) {
+        // TODO lab : add a "Customer.findByCity" @NamedQuery to the Customer entity to fix this test
+        return em.createNamedQuery("Customer.findByCity", Customer.class)
+                .setParameter("city", city)
+                .getResultList();
+    }
 }

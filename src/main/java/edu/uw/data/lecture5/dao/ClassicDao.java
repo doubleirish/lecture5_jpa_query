@@ -38,5 +38,8 @@ import java.util.List;
     //named Query
      List<Customer> findCustomerByFirstAndLast_namedQuery(String first, String last) ;
 
+    //named query lab
+
+      List<Customer> findCustomersByCity(String city);
 
     }

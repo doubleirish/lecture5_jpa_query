@@ -98,21 +98,7 @@ public class ClassicDaoTest extends AbstractTransactionalJUnit4SpringContextTest
         }
     }
 
-    @Test
-    public void findOfficesByExample() {
-        Office officeExample = new Office();
-         //TODO populate officeExample so only offices in the state of California are shown
 
-        List<Office> offices = classicDao.findOffices_QueryByExample(officeExample);
-        assertThat(offices.size(),is(greaterThan(0)));
-
-        log.info("found  " + offices.size() + " matching offices for  " + officeExample);
-        for (Office office : offices) {
-            log.info("matching office " + office);
-            assertThat(office.getState(),is("CA"));
-
-        }
-    }
 
 
     @Test
@@ -151,33 +137,73 @@ public class ClassicDaoTest extends AbstractTransactionalJUnit4SpringContextTest
 
     @Test
     public void findCustomerByCustNum_SQL_INJECTION() {
+        // assume customerNum was a string a user could enter on a web form
         List<Customer> customers = classicDao.findCustomerByCustNum_STRING_CONCAT_BAD("333 OR c.customerNumber is not null");
         for (Customer customer : customers) {
             log.info("customer with injection " + customer);
         }
     }
 
-    @Test
-    public void findCustomerInStateWithCreditLimitGreaterThan() {
 
-        String usState = "CA";
-        Double minimumCreditLimit =50_000.0;
-
-        List<Customer> customers = classicDao.findCustomerInStateWithCreditLimitGreaterThan(usState, minimumCreditLimit);
-        for (Customer customer : customers) {
-            log.info("reputable customer " + customer.getCustomerName() + " in  " + usState + " can buy up to " + customer.getCreditLimit());
-            assertThat(customer.getCreditLimit(),is(greaterThan(minimumCreditLimit)));
-        }
-    }
 
     @Test
     public void findCustomerByFirstAndLast_namedQuery() {
 
         List<Customer> customers =classicDao.findCustomerByFirstAndLast_namedQuery("Jean", "King");
         for (Customer customer : customers) {
-          assertThat(customer.getContactFirstname(),is("Jean"));
+          assertThat(customer.getContactFirstname(), is("Jean"));
         }
 
     }
+
+
+    @Test
+    public void findOfficesByExampleTest_LAB() {
+        Office officeExample = new Office();
+        //TODO Lab : populate officeExample QBE so only offices in the state of California are shown
+
+
+        //TODO Lab : prove a QBE impl  in the followinfing method in ClassicDaoImpl class
+        List<Office> offices = classicDao.findOffices_QueryByExample(officeExample);
+        assertThat(offices.size(),is(greaterThan(0)));
+
+        log.info("found  " + offices.size() + " matching offices for  " + officeExample);
+        for (Office office : offices) {
+            log.info("matching office " + office);
+            assertThat(office.getState(), is("CA"));
+
+        }
+    }
+
+
+    @Test
+    public void findCustomersByCity_LAB() {
+        // TODO Lab : add a namedQuery to Customer entity to fix this test
+        String city = "Redmond";
+        List<Customer> customers =classicDao.findCustomersByCity(city);
+        log.info("found "+ customers.size()+" customers in city : "+city);
+        for (Customer customer : customers) {
+            log.info("in city  "+ city+" found customer: "+customer);
+            assertThat(customer.getCity(), is(city));
+        }
+
+    }
+
+
+    @Test
+    public void findCustomerInStateWithCreditLimitGreaterThan_LAB() {
+
+        String usState = "CA";
+        Double minimumCreditLimit =50_000.0;
+// TODO implement criteria lab
+        List<Customer> customers = classicDao.findCustomerInStateWithCreditLimitGreaterThan(usState, minimumCreditLimit);
+
+        for (Customer customer : customers) {
+            log.info("reputable customer " + customer.getCustomerName() + " in  " + usState + " can buy up to " + customer.getCreditLimit());
+            assertThat(customer.getCreditLimit(), is(greaterThan(minimumCreditLimit)));
+        }
+    }
+
+
 
 }
